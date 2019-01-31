@@ -1,34 +1,40 @@
-interface IStatus {
-	inEdges : Edge ;
-	outEdges : Edge ;
-	FinalStatus :boolean ;
-};
+class DiGraph {
+	adjList : { [key:string] : Array<any > } = {} ;
+	addVertex( vertex : string ) : DiGraph{
+		this.adjList[vertex] = new Array<any>() ;
+		return this ;
+	};
 
-interface Edge {
-
+	addEgde( src : string , dest : string ) : DiGraph{
+		if(this.adjList.hasOwnProperty( src ) && this.adjList.hasOwnProperty(dest))
+			this.adjList[src].push( dest ) ;
+		return this ;
+	};
 }
 
-
-class DiGraph {
-	vertex : string[] = [] ;
-	edges : Array < Array< number > > = [] ;
-
-	public addVertex ( vertex : string ): DiGraph {
-		this.vertex.push( vertex ) ;
-		this.edges.push( new Array() ) ;
-		return this ;
+class NFA {
+	regExp : string ;
+	regLen : number ;
+	constructor( regExp : string ){
+		this.regExp = regExp ;
+		this.regLen = this.regExp.length ;
+		this.init() ;
 	};
 
-	private getVertexIndex ( vertex : string ) : number {
-		return this.vertex.indexOf( vertex ) ;
-	};
+	private init () : void {
+		let currentIndex = null ;
+		const stack = new Array() ;
 
-	public addEdge ( from : string , dest :string ) : DiGraph {
-		const fromIndex = this.getVertexIndex( from ) ;
-		const destIndex = this.getVertexIndex( dest ) ;
-		if(!!~fromIndex && !!~destIndex )
-			this.edges[fromIndex][destIndex] = 1 ;
 
-		return this ;
-	};
-};
+		for(let i = 0 ; i < this.regLen ; i ++ ){
+			let char = this.regExp.charAt( i ) ;
+			if( char === '|' || char === "(" ){
+				stack.push( i ) ;
+			};
+
+			if( i < this.regLen - 1 && this.regExp.charAt(i + 1 ) === '*'){
+			}
+
+		};
+	}
+}
