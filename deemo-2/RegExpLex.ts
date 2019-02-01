@@ -1,5 +1,7 @@
 class DiGraph {
+
 	adjList : { [key:string] : Array<any > } = {} ;
+
 	addVertex( vertex : string ) : DiGraph{
 		this.adjList[vertex] = new Array<any>() ;
 		return this ;
